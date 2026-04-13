@@ -120,7 +120,7 @@ function calcBal(){
     b[g.pag]+=g.monto;
     g.part.forEach(id=>{b[id]-=sh;});
   });
-  adelantos.forEach(a=>{b[a.de]+=a.monto;b[a.a]-=a.monto;});
+  adelantos.forEach(a=>{b[a.de]=(b[a.de]||0)+a.monto;b[a.a]=(b[a.a]||0)-a.monto;});
   return b;
 }
 
