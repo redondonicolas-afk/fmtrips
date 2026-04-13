@@ -18,6 +18,10 @@ def write_data(data):
 def index():
     return send_from_directory('.', 'index.html')
 
+@app.route('/futbol')
+def futbol():
+    return send_from_directory('.', 'futbol.html')
+
 @app.route('/api/gastos', methods=['GET'])
 def get_gastos():
     return jsonify(read_data())
