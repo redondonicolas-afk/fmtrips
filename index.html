@@ -350,16 +350,6 @@ function vAnalisis(){
       <span style="font-size:11px;color:#999;min-width:28px;text-align:right">${pct}%</span>
     </div>`;
   });
-  h+=`</div><div class="sec" style="margin-top:1.5rem">Top pagadores</div><div class="card">`;
-  topS.forEach(([id,tot],i)=>{
-    const p=gp(id);
-    h+=`<div class="bal-row">
-      <span style="font-size:11px;color:#999;min-width:16px">${i+1}</span>
-      <div class="av" style="background:${p?.c}22;color:${p?.c}">${p?.n.slice(0,2).toUpperCase()}</div>
-      <span style="font-size:13px;font-weight:500;flex:1">${p?.n}</span>
-      <span class="badge bb">${fa(tot)}</span>
-    </div>`;
-  });
   h+=`</div>`;return h;
 }
 
