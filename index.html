@@ -62,11 +62,16 @@ input[type=text],input[type=number],select{width:100%;margin-bottom:8px;font-fam
 <div id="app">
   <nav id="sidebar">
     <div class="logo"><div class="logo-t">FM Trips</div><div class="logo-s">Maraya · Abr 2026</div></div>
+    <div style="padding:6px 14px;font-size:9px;color:#bbb;text-transform:uppercase;letter-spacing:.08em;margin-top:4px">Maraya 2026</div>
     <div class="nav-item active" id="nav-resumen" onclick="sv('resumen')">📊 Resumen</div>
     <div class="nav-item" id="nav-gastos" onclick="sv('gastos')">📋 Gastos</div>
     <div class="nav-item" id="nav-nuevo" onclick="sv('nuevo')">➕ Nuevo</div>
     <div class="nav-item" id="nav-balances" onclick="sv('balances')">💸 Balances</div>
     <div class="nav-item" id="nav-analisis" onclick="sv('analisis')">📈 Análisis</div>
+    <div style="margin:8px 14px 0;border-top:1px solid #e8e8e5;padding-top:8px;font-size:9px;color:#bbb;text-transform:uppercase;letter-spacing:.08em">Fútbol</div>
+    <div class="nav-item" id="nav-futbol" onclick="sv('futbol')">⚽ Temporadas</div>
+    <div class="nav-item" id="nav-historico" onclick="sv('historico')">📜 Histórico</div>
+    <div class="nav-item" id="nav-hof" onclick="sv('hof')">🏆 Hall of Fame</div>
   </nav>
   <main id="main"><p style="color:#999;padding:2rem">Cargando...</p></main>
 </div>
@@ -120,7 +125,7 @@ function calcBal(){
     b[g.pag]+=g.monto;
     g.part.forEach(id=>{b[id]-=sh;});
   });
-  adelantos.forEach(a=>{b[a.de]=(b[a.de]||0)+a.monto;b[a.a]=(b[a.a]||0)-a.monto;});
+  adelantos.forEach(a=>{b[a.de]+=a.monto;b[a.a]-=a.monto;});
   return b;
 }
 
@@ -152,6 +157,9 @@ function render(){
   else if(view==='nuevo')m.innerHTML=vNuevo();
   else if(view==='balances')m.innerHTML=vBalances();
   else if(view==='analisis')m.innerHTML=vAnalisis();
+  else if(view==='futbol')m.innerHTML=vFutbol();
+  else if(view==='historico')m.innerHTML=vHistorico();
+  else if(view==='hof')m.innerHTML=vHof();
 }
 
 function vResumen(){
@@ -348,6 +356,151 @@ function vAnalisis(){
       </div>
       <span style="font-size:12px;font-weight:500;min-width:100px;text-align:right">${fa(tot)}</span>
       <span style="font-size:11px;color:#999;min-width:28px;text-align:right">${pct}%</span>
+    </div>`;
+  });
+  h+=`</div><div class="sec" style="margin-top:1.5rem">Top pagadores</div><div class="card">`;
+  topS.forEach(([id,tot],i)=>{
+    const p=gp(id);
+    h+=`<div class="bal-row">
+      <span style="font-size:11px;color:#999;min-width:16px">${i+1}</span>
+      <div class="av" style="background:${p?.c}22;color:${p?.c}">${p?.n.slice(0,2).toUpperCase()}</div>
+      <span style="font-size:13px;font-weight:500;flex:1">${p?.n}</span>
+      <span class="badge bb">${fa(tot)}</span>
+    </div>`;
+  });
+  h+=`</div>`;return h;
+}
+
+// ---- FÚTBOL ----
+const SEASONS=[{"temporada":1,"fecha_ini":"05/01/2021","fecha_fin":"24/06/2021","partidos":40,"campeon":"Magu","subcampeon":"Fata","tercero":"Mata","jugadores":[{"name":"Magu","pts":52.0,"j":39,"g":19,"e":6,"p":14},{"name":"Fata","pts":49.0,"j":36,"g":17,"e":6,"p":13},{"name":"Mata","pts":47.0,"j":36,"g":17,"e":5,"p":14},{"name":"Gabo","pts":43.0,"j":29,"g":16,"e":3,"p":10},{"name":"Tefo","pts":36.0,"j":23,"g":12,"e":4,"p":7},{"name":"Ciga","pts":36.0,"j":30,"g":15,"e":3,"p":12},{"name":"Cheche","pts":32.0,"j":33,"g":13,"e":6,"p":14},{"name":"Tolito","pts":31.0,"j":16,"g":9,"e":4,"p":3},{"name":"Justin","pts":26.0,"j":15,"g":9,"e":3,"p":3},{"name":"Chule","pts":26.0,"j":27,"g":11,"e":4,"p":12},{"name":"Javo","pts":23.0,"j":19,"g":9,"e":3,"p":7},{"name":"Nico Graben","pts":21.0,"j":21,"g":9,"e":3,"p":9},{"name":"Negro","pts":20.0,"j":40,"g":0,"e":100,"p":0},{"name":"Manu","pts":17.0,"j":15,"g":7,"e":2,"p":6},{"name":"Lucio","pts":17.0,"j":15,"g":7,"e":2,"p":6},{"name":"Saimon","pts":16.0,"j":28,"g":9,"e":4,"p":15}]},{"temporada":2,"fecha_ini":"29/06/2021","fecha_fin":"19/10/2021","partidos":31,"campeon":"Chule","subcampeon":"Mt3","tercero":"Fata","jugadores":[{"name":"Chule","pts":34.0,"j":26,"g":18,"e":0,"p":8},{"name":"Mt3","pts":28.0,"j":29,"g":15,"e":1,"p":13},{"name":"Fata","pts":25.0,"j":20,"g":13,"e":1,"p":6},{"name":"Mata","pts":19.0,"j":27,"g":14,"e":0,"p":13},{"name":"Javi","pts":18.0,"j":14,"g":10,"e":0,"p":4},{"name":"Negro","pts":17.0,"j":31,"g":0,"e":100,"p":0},{"name":"Coco","pts":13.0,"j":22,"g":11,"e":1,"p":10},{"name":"Redon","pts":12.0,"j":11,"g":6,"e":1,"p":4},{"name":"Ciga","pts":12.0,"j":14,"g":7,"e":1,"p":6},{"name":"Saimon","pts":8.0,"j":20,"g":8,"e":1,"p":11},{"name":"Gabo","pts":7.0,"j":15,"g":6,"e":1,"p":8},{"name":"Tolo","pts":8.0,"j":12,"g":6,"e":1,"p":5},{"name":"Manu","pts":6.0,"j":8,"g":4,"e":0,"p":4}]},{"temporada":3,"fecha_ini":"26/10/2021","fecha_fin":"01/03/2022","partidos":30,"campeon":"Poke","subcampeon":"Cale","tercero":"Fata","jugadores":[{"name":"Poke","pts":31.0,"j":21,"g":14,"e":2,"p":5},{"name":"Cale","pts":29.0,"j":23,"g":13,"e":4,"p":6},{"name":"Fata","pts":28.0,"j":25,"g":13,"e":4,"p":8},{"name":"Javo","pts":25.0,"j":14,"g":9,"e":4,"p":1},{"name":"Gabo","pts":24.0,"j":21,"g":12,"e":3,"p":6},{"name":"Jere","pts":17.0,"j":15,"g":9,"e":1,"p":5},{"name":"Mt3","pts":16.0,"j":22,"g":9,"e":4,"p":9},{"name":"Redon","pts":15.0,"j":16,"g":7,"e":3,"p":6},{"name":"Cuchara","pts":15.0,"j":20,"g":9,"e":3,"p":8},{"name":"Saimon","pts":10.0,"j":18,"g":8,"e":2,"p":8},{"name":"Mata","pts":7.0,"j":20,"g":6,"e":3,"p":11},{"name":"Chule","pts":6.0,"j":14,"g":5,"e":2,"p":7}]},{"temporada":4,"fecha_ini":"08/03/2022","fecha_fin":"23/08/2022","partidos":30,"campeon":"Jonno","subcampeon":"Mata","tercero":"Pato","jugadores":[{"name":"Jonno","pts":25.5,"j":16,"g":11,"e":2,"p":3},{"name":"Mata","pts":21.0,"j":24,"g":13,"e":2,"p":9},{"name":"Pato","pts":20.0,"j":18,"g":12,"e":1,"p":5},{"name":"Redon","pts":19.0,"j":16,"g":9,"e":2,"p":5},{"name":"Abuelo","pts":16.0,"j":23,"g":11,"e":3,"p":9},{"name":"Poke","pts":11.5,"j":19,"g":8,"e":2,"p":9},{"name":"Rayo","pts":7.5,"j":17,"g":9,"e":1,"p":7},{"name":"Fata","pts":5.0,"j":20,"g":7,"e":3,"p":10}]},{"temporada":5,"fecha_ini":"30/08/2022","fecha_fin":"07/12/2022","partidos":15,"campeon":"Colo","subcampeon":"Mata","tercero":"Mt3","jugadores":[{"name":"Colo","pts":25.0,"j":10,"g":9,"e":1,"p":0},{"name":"Mata","pts":20.0,"j":13,"g":8,"e":1,"p":4},{"name":"Mt3","pts":16.0,"j":14,"g":9,"e":0,"p":5},{"name":"Poke","pts":9.0,"j":11,"g":6,"e":1,"p":4},{"name":"Fata","pts":6.0,"j":11,"g":5,"e":0,"p":6},{"name":"Rayo","pts":5.5,"j":9,"g":4,"e":1,"p":4},{"name":"Redon","pts":2.0,"j":6,"g":3,"e":1,"p":2}]},{"temporada":6,"fecha_ini":"15/12/2022","fecha_fin":"27/12/2023","partidos":25,"campeon":"Manu","subcampeon":"Javi","tercero":"Chule","jugadores":[{"name":"Manu","pts":27.5,"j":18,"g":11,"e":3,"p":4},{"name":"Javi","pts":23.5,"j":16,"g":10,"e":3,"p":3},{"name":"Chule","pts":22.0,"j":18,"g":10,"e":3,"p":5},{"name":"Mata","pts":16.5,"j":14,"g":7,"e":3,"p":4},{"name":"Poke","pts":16.0,"j":13,"g":8,"e":2,"p":3},{"name":"Jere","pts":15.5,"j":14,"g":8,"e":2,"p":4},{"name":"Fata","pts":15.0,"j":17,"g":8,"e":3,"p":6},{"name":"Gabo","pts":12.0,"j":15,"g":6,"e":4,"p":5},{"name":"Redon","pts":8.5,"j":14,"g":6,"e":2,"p":6}]},{"temporada":7,"fecha_ini":"23/05/2023","fecha_fin":"07/11/2023","partidos":25,"campeon":"Mt3","subcampeon":"Berni","tercero":"Chula","jugadores":[{"name":"Mt3","pts":25.0,"j":23,"g":13,"e":3,"p":7},{"name":"Berni","pts":23.5,"j":14,"g":10,"e":1,"p":3},{"name":"Chula","pts":20.0,"j":23,"g":11,"e":3,"p":9},{"name":"Jere","pts":15.0,"j":21,"g":9,"e":2,"p":10},{"name":"Gabo","pts":14.0,"j":12,"g":8,"e":1,"p":3},{"name":"Fata","pts":11.0,"j":16,"g":8,"e":2,"p":6},{"name":"Mata","pts":8.5,"j":18,"g":8,"e":2,"p":8}]},{"temporada":8,"fecha_ini":"14/11/2023","fecha_fin":"26/12/2024","partidos":18,"campeon":"Fata","subcampeon":"Cuchara","tercero":"Mata","jugadores":[{"name":"Fata","pts":17.0,"j":12,"g":8,"e":1,"p":3},{"name":"Cuchara","pts":13.5,"j":11,"g":6,"e":1,"p":4},{"name":"Mata","pts":13.0,"j":14,"g":8,"e":1,"p":5},{"name":"Mt3","pts":10.0,"j":15,"g":7,"e":1,"p":7},{"name":"Rayo","pts":8.0,"j":13,"g":7,"e":1,"p":5},{"name":"Redon","pts":7.5,"j":10,"g":6,"e":0,"p":4},{"name":"Gabo","pts":7.0,"j":9,"g":5,"e":0,"p":4},{"name":"Poke","pts":6.0,"j":7,"g":4,"e":0,"p":3}]},{"temporada":9,"fecha_ini":"05/03/2024","fecha_fin":"09/07/2024","partidos":19,"campeon":"Gabo","subcampeon":"Javo","tercero":"Redon","jugadores":[{"name":"Gabo","pts":25.0,"j":17,"g":10,"e":2,"p":5},{"name":"Javo","pts":20.5,"j":14,"g":7,"e":3,"p":4},{"name":"Redon","pts":18.0,"j":11,"g":7,"e":2,"p":2},{"name":"Mata","pts":14.5,"j":12,"g":6,"e":2,"p":4},{"name":"Poke","pts":12.5,"j":13,"g":7,"e":1,"p":5},{"name":"Mt3","pts":6.0,"j":18,"g":6,"e":3,"p":9},{"name":"Rayo","pts":3.0,"j":7,"g":2,"e":1,"p":4}]},{"temporada":10,"fecha_ini":"16/07/2024","fecha_fin":"12/11/2024","partidos":17,"campeon":"Gabo","subcampeon":"Vp","tercero":"Maxi Paz","jugadores":[{"name":"Gabo","pts":29.0,"j":15,"g":11,"e":0,"p":4},{"name":"Vp","pts":16.0,"j":11,"g":7,"e":0,"p":4},{"name":"Maxi Paz","pts":15.5,"j":13,"g":9,"e":0,"p":4},{"name":"Pato","pts":14.0,"j":13,"g":9,"e":0,"p":4},{"name":"Jere","pts":14.0,"j":13,"g":8,"e":0,"p":5},{"name":"Saimon","pts":12.0,"j":14,"g":7,"e":0,"p":7},{"name":"Maxo","pts":8.0,"j":10,"g":7,"e":0,"p":3},{"name":"Poke","pts":5.0,"j":6,"g":3,"e":0,"p":3},{"name":"Fata","pts":3.0,"j":5,"g":3,"e":0,"p":2}]},{"temporada":11,"fecha_ini":"19/11/2024","fecha_fin":"25/03/2025","partidos":18,"campeon":"Mt3","subcampeon":"Poke","tercero":"Gabo","jugadores":[{"name":"Mt3","pts":32.0,"j":18,"g":13,"e":2,"p":3},{"name":"Poke","pts":17.0,"j":12,"g":8,"e":1,"p":3},{"name":"Gabo","pts":16.0,"j":14,"g":7,"e":2,"p":5},{"name":"Rayo","pts":11.0,"j":15,"g":7,"e":2,"p":6},{"name":"Cucha","pts":11.0,"j":14,"g":7,"e":1,"p":6},{"name":"Fata","pts":10.0,"j":15,"g":6,"e":2,"p":7},{"name":"Cale","pts":7.5,"j":7,"g":5,"e":0,"p":2},{"name":"Jere","pts":7.0,"j":11,"g":5,"e":1,"p":5},{"name":"Saimon","pts":5.0,"j":12,"g":6,"e":1,"p":5}]},{"temporada":12,"fecha_ini":"15/04/2025","fecha_fin":"23/09/2025","partidos":20,"campeon":"Poke","subcampeon":"Vp","tercero":"Gabo","jugadores":[{"name":"Poke","pts":19.0,"j":11,"g":6,"e":4,"p":1},{"name":"Vp","pts":16.5,"j":17,"g":7,"e":6,"p":4},{"name":"Gabo","pts":14.5,"j":17,"g":7,"e":5,"p":5},{"name":"Saimon","pts":12.0,"j":14,"g":6,"e":3,"p":5},{"name":"Jere","pts":11.0,"j":10,"g":4,"e":4,"p":2},{"name":"Rayo","pts":7.5,"j":10,"g":4,"e":4,"p":2},{"name":"Redon","pts":7.0,"j":7,"g":3,"e":3,"p":1},{"name":"Manu","pts":6.0,"j":8,"g":3,"e":3,"p":2},{"name":"Cucha","pts":5.5,"j":15,"g":4,"e":5,"p":6},{"name":"Fata","pts":3.0,"j":5,"g":3,"e":0,"p":2}]},{"temporada":13,"fecha_ini":"07/10/2025","fecha_fin":"10/03/2026","partidos":18,"campeon":"Poke","subcampeon":"Mt3","tercero":"Pato","jugadores":[{"name":"Poke","pts":25.0,"j":16,"g":11,"e":1,"p":4},{"name":"Mt3","pts":19.0,"j":17,"g":10,"e":1,"p":6},{"name":"Pato","pts":18.0,"j":14,"g":8,"e":1,"p":5},{"name":"Ciga","pts":17.0,"j":9,"g":7,"e":1,"p":1},{"name":"Maxo","pts":16.0,"j":12,"g":8,"e":0,"p":4},{"name":"Chule","pts":8.5,"j":12,"g":6,"e":1,"p":5},{"name":"Fata","pts":5.0,"j":8,"g":3,"e":1,"p":4},{"name":"Cuchara","pts":5.5,"j":14,"g":7,"e":1,"p":6},{"name":"Saimon","pts":5.0,"j":13,"g":5,"e":1,"p":7},{"name":"Rayo","pts":4.0,"j":8,"g":3,"e":1,"p":4}]},{"temporada":14,"fecha_ini":"31/01/2026","fecha_fin":"en curso","partidos":4,"campeon":"Gabo","subcampeon":"Bubu","tercero":"Rovi WC","jugadores":[{"name":"Gabo","pts":9.0,"j":4,"g":4,"e":0,"p":0},{"name":"Bubu","pts":7.0,"j":4,"g":3,"e":0,"p":1},{"name":"Mata","pts":4.0,"j":2,"g":2,"e":0,"p":0},{"name":"Chule","pts":3.0,"j":4,"g":2,"e":0,"p":2},{"name":"Mt3","pts":3.0,"j":4,"g":2,"e":0,"p":2},{"name":"Fata","pts":2.0,"j":3,"g":1,"e":0,"p":2},{"name":"Redon","pts":1.0,"j":2,"g":1,"e":0,"p":1},{"name":"Manu","pts":1.0,"j":2,"g":1,"e":0,"p":1}]}];
+
+let activeSeason=null;
+
+function vFutbol(){
+  let h=`<div class="ph">⚽ Temporadas FM</div>
+  <div class="grid4" style="margin-bottom:1.5rem">
+    <div class="stat"><div class="st-l">Temporadas</div><div class="st-v">14</div></div>
+    <div class="stat"><div class="st-l">Partidos</div><div class="st-v">310</div></div>
+    <div class="stat"><div class="st-l">Jugadores únicos</div><div class="st-v">73+</div></div>
+    <div class="stat" style="background:#f0fdf4"><div class="st-l">En curso</div><div class="st-v" style="color:#166534">T14 🟢</div></div>
+  </div>
+  <div id="s-detail"></div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">`;
+  SEASONS.slice().reverse().forEach(s=>{
+    const cur=s.temporada===14;
+    h+=`<div onclick="toggleSeason(${s.temporada})" id="sc-${s.temporada}" style="background:#fff;border:1px solid ${activeSeason===s.temporada?'#3b82f6':cur?'#bbf7d0':'#e8e8e5'};border-radius:10px;padding:12px;cursor:pointer;transition:border-color .15s">
+      <div style="font-size:9px;color:#999;text-transform:uppercase;letter-spacing:.05em">T${s.temporada} ${cur?'🟢':''}</div>
+      <div style="font-size:15px;font-weight:700;color:#1a1a1a;margin:3px 0">🏆 ${s.campeon}</div>
+      <div style="font-size:10px;color:#999;margin-bottom:6px">${s.fecha_ini}${s.fecha_fin!=='en curso'?' → '+s.fecha_fin:' → hoy'}</div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap">
+        <span style="font-size:10px;padding:2px 6px;border-radius:4px;background:#f5f5f3;color:#666">${s.partidos} partidos</span>
+      </div>
+      <div style="font-size:10px;color:#999;margin-top:6px">🥈 ${s.subcampeon} · 🥉 ${s.tercero}</div>
+    </div>`;
+  });
+  h+=`</div>`;return h;
+}
+
+function toggleSeason(id){
+  const detail=document.getElementById('s-detail');
+  if(!detail)return;
+  if(activeSeason===id){
+    activeSeason=null;detail.innerHTML='';
+    document.querySelectorAll('[id^="sc-"]').forEach(el=>el.style.borderColor='#e8e8e5');
+    return;
+  }
+  activeSeason=id;
+  document.querySelectorAll('[id^="sc-"]').forEach(el=>el.style.borderColor='#e8e8e5');
+  const sc=document.getElementById('sc-'+id);if(sc)sc.style.borderColor='#3b82f6';
+  const s=SEASONS.find(x=>x.temporada===id);
+  detail.innerHTML=`<div class="card" style="margin-bottom:12px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div><div style="font-size:15px;font-weight:700">Temporada ${s.temporada} — ${s.campeon} 🏆</div>
+      <div style="font-size:11px;color:#999">${s.fecha_ini} · ${s.partidos} partidos · ${s.jugadores.length} jugadores</div></div>
+      <button class="btn-s" onclick="toggleSeason(${id})">cerrar ✕</button>
+    </div>
+    <table style="width:100%;border-collapse:collapse">
+      <thead><tr style="border-bottom:1px solid #f0f0ee">
+        <th style="font-size:10px;color:#999;padding:5px 8px;text-align:left">#</th>
+        <th style="font-size:10px;color:#999;padding:5px 8px;text-align:left">Jugador</th>
+        <th style="font-size:10px;color:#999;padding:5px 8px;text-align:right">PTS</th>
+        <th style="font-size:10px;color:#999;padding:5px 8px;text-align:right">J</th>
+        <th style="font-size:10px;color:#999;padding:5px 8px;text-align:right">G</th>
+        <th style="font-size:10px;color:#999;padding:5px 8px;text-align:right">E</th>
+        <th style="font-size:10px;color:#999;padding:5px 8px;text-align:right">P</th>
+        <th style="font-size:10px;color:#999;padding:5px 8px;text-align:right">Pts/J</th>
+      </tr></thead><tbody>
+      ${s.jugadores.map((p,i)=>`<tr style="border-bottom:1px solid #f9f9f7">
+        <td style="padding:6px 8px;font-size:11px;color:#999">${i+1}</td>
+        <td style="padding:6px 8px;font-size:13px;font-weight:${i<3?'700':'400'};color:${i===0?'#d97706':i===1?'#6b7280':i===2?'#92400e':'#1a1a1a'}">${p.name}</td>
+        <td style="padding:6px 8px;text-align:right"><span style="background:#dbeafe;color:#1e40af;padding:1px 7px;border-radius:4px;font-size:12px;font-weight:600">${p.pts}</span></td>
+        <td style="padding:6px 8px;text-align:right;font-size:12px;color:#666">${p.j}</td>
+        <td style="padding:6px 8px;text-align:right;font-size:12px;color:#166534">${p.g>=0?p.g:'-'}</td>
+        <td style="padding:6px 8px;text-align:right;font-size:12px;color:#666">${p.e<=100?p.e:'-'}</td>
+        <td style="padding:6px 8px;text-align:right;font-size:12px;color:#991b1b">${p.p>=0?p.p:'-'}</td>
+        <td style="padding:6px 8px;text-align:right;font-size:12px;color:#666">${p.j>0?Math.round(p.pts/p.j*10)/10:'-'}</td>
+      </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>`;
+  detail.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function vHistorico(){
+  const tot={};
+  SEASONS.forEach(s=>{
+    s.jugadores.forEach(p=>{
+      if(!tot[p.name])tot[p.name]={pts:0,j:0,g:0,t:0,temporadas:0};
+      tot[p.name].pts+=p.pts;tot[p.name].j+=p.j;
+      if(p.g>0)tot[p.name].g+=p.g;
+      tot[p.name].temporadas++;
+    });
+    [s.campeon].forEach(n=>{if(n&&tot[n])tot[n].t++;});
+  });
+  const sorted=Object.entries(tot).sort((a,b)=>b[1].pts-a[1].pts);
+  const maxPts=sorted[0][1].pts;
+  let h=`<div class="ph">📜 Ranking histórico</div><div class="card">
+  <table style="width:100%;border-collapse:collapse">
+    <thead><tr style="border-bottom:1px solid #f0f0ee">
+      <th style="font-size:10px;color:#999;padding:5px 8px;text-align:left">#</th>
+      <th style="font-size:10px;color:#999;padding:5px 8px;text-align:left">Jugador</th>
+      <th style="font-size:10px;color:#999;padding:5px 8px;text-align:right">PTS total</th>
+      <th style="font-size:10px;color:#999;padding:5px 8px;text-align:right">Partidos</th>
+      <th style="font-size:10px;color:#999;padding:5px 8px;text-align:right">Victorias</th>
+      <th style="font-size:10px;color:#999;padding:5px 8px;text-align:right">Títulos</th>
+      <th style="font-size:10px;color:#999;padding:5px 8px;text-align:right">Temporadas</th>
+    </tr></thead><tbody>`;
+  sorted.forEach(([name,d],i)=>{
+    h+=`<tr style="border-bottom:1px solid #f9f9f7">
+      <td style="padding:6px 8px;font-size:11px;color:#999">${i+1}</td>
+      <td style="padding:6px 8px;font-size:13px;font-weight:500">${name}${d.t>0?` <span style="background:#fef9c3;color:#854d0e;padding:1px 5px;border-radius:4px;font-size:10px">🏆${d.t}</span>`:''}</td>
+      <td style="padding:6px 8px;text-align:right">
+        <span style="font-weight:600;color:#1e40af">${Math.round(d.pts)}</span>
+        <div style="height:3px;background:#f0f0ee;border-radius:2px;margin-top:2px"><div style="width:${Math.round(d.pts/maxPts*100)}%;height:3px;background:#3b82f6;border-radius:2px"></div></div>
+      </td>
+      <td style="padding:6px 8px;text-align:right;font-size:12px;color:#666">${d.j}</td>
+      <td style="padding:6px 8px;text-align:right;font-size:12px;color:#166534">${d.g}</td>
+      <td style="padding:6px 8px;text-align:right;font-size:12px">${d.t>0?'🏆'.repeat(d.t):'-'}</td>
+      <td style="padding:6px 8px;text-align:right;font-size:12px;color:#666">${d.temporadas}</td>
+    </tr>`;
+  });
+  h+=`</tbody></table></div>`;return h;
+}
+
+function vHof(){
+  let h=`<div class="ph">🏆 Hall of Fame</div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">`;
+  SEASONS.slice().reverse().forEach(s=>{
+    h+=`<div class="card" style="display:flex;align-items:center;gap:12px">
+      <div style="font-size:12px;color:#999;min-width:24px;text-align:center;font-weight:600">T${s.temporada}</div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:700;color:#d97706">🏆 ${s.campeon} ${s.temporada===14?'🟢':''}</div>
+        <div style="font-size:10px;color:#999;margin-top:2px">${s.fecha_ini} · ${s.partidos} partidos</div>
+      </div>
+      <div style="font-size:11px;color:#999;text-align:right">
+        <div>🥈 ${s.subcampeon}</div>
+        <div>🥉 ${s.tercero}</div>
+      </div>
     </div>`;
   });
   h+=`</div>`;return h;
