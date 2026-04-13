@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FM Trips — Maraya 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;background:#f5f5f3;color:#1a1a1a;min-height:100vh}
+#app{display:flex;min-height:100vh}
+#sidebar{width:150px;background:#fff;border-right:1px solid #e8e8e5;padding:1rem 0;flex-shrink:0;position:sticky;top:0;height:100vh}
+.logo{padding:0 14px 14px;border-bottom:1px solid #e8e8e5;margin-bottom:8px}
+.logo-t{font-size:14px;font-weight:600;color:#1a1a1a}
+.logo-s{font-size:10px;color:#999;margin-top:2px}
+#main{flex:1;padding:1.5rem;overflow-y:auto;max-width:900px}
+.nav-item{padding:8px 14px;cursor:pointer;font-size:12px;color:#666;display:block;border-left:3px solid transparent}
+.nav-item:hover{background:#f5f5f3;color:#1a1a1a}
+.nav-item.active{color:#1a1a1a;font-weight:500;border-left-color:#1a1a1a;background:#f5f5f3}
+.ph{font-size:18px;font-weight:600;color:#1a1a1a;margin-bottom:1.5rem}
+.card{background:#fff;border:1px solid #e8e8e5;border-radius:12px;padding:1rem 1.25rem;margin-bottom:12px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
+.stat{background:#f5f5f3;border-radius:8px;padding:12px}
+.st-l{font-size:10px;color:#999;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+.st-v{font-size:16px;font-weight:600;color:#1a1a1a}
+.sec{font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:500}
+.bg{background:#dcfce7;color:#166534}.br{background:#fee2e2;color:#991b1b}.bb{background:#dbeafe;color:#1e40af}
+.bal-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f0f0ee}
+.bal-row:last-child{border-bottom:none}
+.av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0}
+.bar{height:3px;border-radius:2px;margin-top:3px}
+.gasto-row{padding:10px 0;border-bottom:1px solid #f0f0ee}
+.gasto-row:last-child{border-bottom:none}
+.gasto-main{display:flex;align-items:center;gap:10px}
+.chip{display:inline-flex;align-items:center;padding:4px 10px;border-radius:6px;font-size:11px;cursor:pointer;user-select:none;transition:all .15s;margin:2px}
+.chip.on{background:#1e40af;color:#fff}.chip.off{background:#f0f0ee;color:#999}
+.pgrid{display:flex;flex-wrap:wrap;margin:8px 0 8px}
+input[type=text],input[type=number],select{width:100%;margin-bottom:8px;font-family:inherit;font-size:12px;padding:7px 10px;border:1px solid #e8e8e5;border-radius:6px;background:#fff;color:#1a1a1a}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.lbl{font-size:11px;color:#666;margin-bottom:3px;display:block}
+.btn-p{background:#1a1a1a;color:#fff;border:none;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;width:100%;margin-top:8px}
+.btn-p:hover{opacity:.85}
+.btn-s{background:none;border:1px solid #e8e8e5;padding:5px 12px;border-radius:6px;font-size:11px;cursor:pointer;color:#666;margin:2px}
+.btn-s:hover{background:#f5f5f3}
+.ebtn{padding:3px 8px;font-size:10px;cursor:pointer;border:1px solid #dbeafe;border-radius:6px;background:none;color:#1e40af}
+.ebtn:hover{background:#dbeafe}
+.dbtn{padding:3px 7px;font-size:10px;cursor:pointer;border:1px solid #e8e8e5;border-radius:6px;background:none;color:#999}
+.dbtn:hover{background:#fee2e2;color:#991b1b;border-color:#fecaca}
+.edit-panel{background:#f5f5f3;border-radius:8px;padding:12px;margin-top:10px;display:none}
+.edit-panel.open{display:block}
+.tr-row{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid #f0f0ee;font-size:12px}
+.tr-row:last-child{border-bottom:none}
+.saved-toast{position:fixed;bottom:20px;right:20px;background:#166534;color:#fff;padding:10px 16px;border-radius:8px;font-size:12px;display:none;z-index:99}
+@media(max-width:600px){
+  #sidebar{width:110px}
+  .grid4{grid-template-columns:repeat(2,1fr)}
+  #main{padding:1rem}
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <nav id="sidebar">
+    <div class="logo"><div class="logo-t">FM Trips</div><div class="logo-s">Maraya · Abr 2026</div></div>
+    <div class="nav-item active" id="nav-resumen" onclick="sv('resumen')">📊 Resumen</div>
+    <div class="nav-item" id="nav-gastos" onclick="sv('gastos')">📋 Gastos</div>
+    <div class="nav-item" id="nav-nuevo" onclick="sv('nuevo')">➕ Nuevo</div>
+    <div class="nav-item" id="nav-balances" onclick="sv('balances')">💸 Balances</div>
+    <div class="nav-item" id="nav-analisis" onclick="sv('analisis')">📈 Análisis</div>
+  </nav>
+  <main id="main"><p style="color:#999;padding:2rem">Cargando...</p></main>
+</div>
+<div class="saved-toast" id="toast">✅ Guardado</div>
+
+<script>
+const P=[
+  {id:'redon',n:'Redon',c:'#3b82f6'},{id:'cale',n:'Cale',c:'#10b981'},
+  {id:'fata',n:'Fata',c:'#f97316'},{id:'mata',n:'Mata',c:'#8b5cf6'},
+  {id:'nicos',n:'Nico S',c:'#f59e0b'},{id:'chule',n:'Chule',c:'#ec4899'},
+  {id:'gabo',n:'Gabo',c:'#84cc16'},{id:'magu',n:'Magu',c:'#14b8a6'},
+  {id:'cucha',n:'Cucha',c:'#6366f1'},{id:'javo',n:'Javo',c:'#ef4444'},
+  {id:'manu',n:'Manu',c:'#a855f7'},{id:'tolo',n:'Tolo',c:'#22c55e'},
+  {id:'santi',n:'Santi',c:'#f43f5e'},{id:'poke',n:'Poke',c:'#d97706'},
+  {id:'rayo',n:'Rayo',c:'#dc2626'},{id:'maxo',n:'Maxo',c:'#0ea5e9'},
+];
+const TODOS=P.map(p=>p.id);
+const MIE=['cale','gabo','magu','cucha','fata','tolo','chule','santi'];
+const SIN_RAYO=TODOS.filter(id=>id!=='rayo');
+const CATS=['Comida','Super','Transporte','Joda','Alojamiento','Varios'];
+const CC={'Comida':'#dcfce7','Super':'#dbeafe','Transporte':'#fef9c3','Joda':'#fce7f3','Alojamiento':'#d1fae5','Varios':'#f3f4f6'};
+const CT={'Comida':'#166534','Super':'#1e40af','Transporte':'#854d0e','Joda':'#9d174d','Alojamiento':'#065f46','Varios':'#4b5563'};
+
+let gastos=[],adelantos=[],view='resumen',newChips=new Set(TODOS);
+
+function gp(id){return P.find(p=>p.id===id)}
+function fa(n){return '$'+Math.round(n).toLocaleString('es-AR')}
+function toast(){const t=document.getElementById('toast');t.style.display='block';setTimeout(()=>t.style.display='none',2000)}
+
+async function load(){
+  try{
+    const r=await fetch('/api/gastos');
+    const d=await r.json();
+    gastos=d.gastos||[];
+    adelantos=d.adelantos||[];
+  }catch(e){gastos=[];adelantos=[];}
+  render();
+}
+
+async function save(){
+  try{
+    await fetch('/api/gastos',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({gastos,adelantos})});
+    toast();
+  }catch(e){alert('Error al guardar');}
+}
+
+function calcBal(){
+  const b={};P.forEach(p=>b[p.id]=0);
+  gastos.forEach(g=>{
+    const sh=g.monto/g.part.length;
+    b[g.pag]+=g.monto;
+    g.part.forEach(id=>{b[id]-=sh;});
+  });
+  adelantos.forEach(a=>{b[a.de]+=a.monto;b[a.a]-=a.monto;});
+  return b;
+}
+
+function simplify(bal){
+  const cr=[],de=[];
+  Object.entries(bal).forEach(([id,b])=>{if(b>10)cr.push({id,b});else if(b<-10)de.push({id,b:-b});});
+  cr.sort((a,c)=>c.b-a.b);de.sort((a,c)=>c.b-a.b);
+  const tr=[];let ci=0,di=0;
+  while(ci<cr.length&&di<de.length){
+    const c=cr[ci],d=de[di],am=Math.min(c.b,d.b);
+    tr.push({from:d.id,to:c.id,amount:am});
+    c.b-=am;d.b-=am;
+    if(c.b<10)ci++;if(d.b<10)di++;
+  }
+  return tr;
+}
+
+function sv(v){
+  view=v;newChips=new Set(TODOS);
+  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+  const el=document.getElementById('nav-'+v);if(el)el.classList.add('active');
+  render();
+}
+
+function render(){
+  const m=document.getElementById('main');if(!m)return;
+  if(view==='resumen')m.innerHTML=vResumen();
+  else if(view==='gastos')m.innerHTML=vGastos();
+  else if(view==='nuevo')m.innerHTML=vNuevo();
+  else if(view==='balances')m.innerHTML=vBalances();
+  else if(view==='analisis')m.innerHTML=vAnalisis();
+}
+
+function vResumen(){
+  const bal=calcBal();
+  const tot=gastos.reduce((s,g)=>s+g.monto,0);
+  const maxAbs=Math.max(...Object.values(bal).map(Math.abs),1);
+  const sorted=[...P].sort((a,b)=>bal[a.id]-bal[b.id]);
+  let h=`<div class="ph">🏖️ FM Trips Maraya 2026</div>
+  <div class="grid4">
+    <div class="stat"><div class="st-l">Total ARS</div><div class="st-v">${fa(tot)}</div></div>
+    <div class="stat"><div class="st-l">Total USD</div><div class="st-v">U$S ${Math.round(tot/1380).toLocaleString()}</div></div>
+    <div class="stat"><div class="st-l">Por cabeza</div><div class="st-v">U$S ${Math.round(tot/1380/16).toLocaleString()}</div></div>
+    <div class="stat"><div class="st-l">Gastos</div><div class="st-v">${gastos.length}</div></div>
+  </div>
+  <div class="sec">Estado por persona</div><div class="card">`;
+  sorted.forEach(p=>{
+    const b=bal[p.id],pos=b>=0,pct=Math.max(Math.abs(b)/maxAbs*100,2);
+    h+=`<div class="bal-row">
+      <div class="av" style="background:${p.c}22;color:${p.c}">${p.n.slice(0,2).toUpperCase()}</div>
+      <div style="flex:1">
+        <div style="display:flex;justify-content:space-between">
+          <span style="font-weight:500;font-size:12px">${p.n}</span>
+          <span class="badge ${pos?'bg':'br'}">${pos?'+':''}${fa(b)}</span>
+        </div>
+        <div class="bar" style="width:${pct}%;background:${pos?'#10b981':'#ef4444'}"></div>
+      </div></div>`;
+  });
+  h+=`</div>`;return h;
+}
+
+function vGastos(){
+  let h=`<div class="ph">📋 Gastos (${gastos.length})</div><div class="card">`;
+  gastos.forEach(g=>{
+    const pn=gp(g.pag)?.n||g.pag;
+    const cc=CC[g.cat]||'#f3f4f6',ct=CT[g.cat]||'#4b5563';
+    h+=`<div class="gasto-row" id="grow-${g.id}">
+      <div class="gasto-main">
+        <div style="flex:1">
+          <div style="font-weight:500;font-size:13px">${g.desc}</div>
+          <div style="font-size:11px;color:#999;margin-top:3px" id="gmeta-${g.id}">
+            pagó <b style="color:#1a1a1a">${pn}</b> · ${g.part.length} personas
+            <span style="background:${cc};color:${ct};padding:1px 6px;border-radius:4px;font-size:10px;margin-left:4px">${g.cat}</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span style="font-weight:600;font-size:13px">${fa(g.monto)}</span>
+          <button class="ebtn" onclick="toggleEdit(${g.id})">✏️ editar</button>
+          <button class="dbtn" onclick="del(${g.id})">✕</button>
+        </div>
+      </div>
+      <div class="edit-panel" id="ep-${g.id}">
+        <div style="font-size:11px;color:#666;margin-bottom:6px">Tocá para sacar o agregar de este gasto:</div>
+        <div class="pgrid">
+          ${P.map(p=>`<span class="chip ${g.part.includes(p.id)?'on':'off'}" id="ec-${g.id}-${p.id}" onclick="tEditChip(${g.id},'${p.id}')">${p.n}</span>`).join('')}
+        </div>
+        <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">
+          <button class="btn-s" onclick="selEditAll(${g.id},true)">Todos</button>
+          <button class="btn-s" onclick="selEditAll(${g.id},false)">Ninguno</button>
+          <button class="btn-s" onclick="selEditG(${g.id},'mie')">8 miércoles</button>
+          <button class="btn-s" onclick="selEditG(${g.id},'sinrayo')">Sin Rayo</button>
+        </div>
+        <button class="btn-p" onclick="saveEdit(${g.id})">Guardar cambios →</button>
+      </div>
+    </div>`;
+  });
+  h+=`</div>`;return h;
+}
+
+function toggleEdit(id){
+  const ep=document.getElementById('ep-'+id);if(!ep)return;
+  const isOpen=ep.classList.contains('open');
+  document.querySelectorAll('.edit-panel.open').forEach(el=>el.classList.remove('open'));
+  if(!isOpen)ep.classList.add('open');
+}
+function tEditChip(gid,pid){
+  const g=gastos.find(x=>x.id===gid);if(!g)return;
+  const el=document.getElementById(`ec-${gid}-${pid}`);if(!el)return;
+  if(g.part.includes(pid)){g.part=g.part.filter(id=>id!==pid);el.classList.replace('on','off');}
+  else{g.part.push(pid);el.classList.replace('off','on');}
+}
+function selEditAll(gid,v){
+  const g=gastos.find(x=>x.id===gid);if(!g)return;
+  g.part=v?[...TODOS]:[];
+  P.forEach(p=>{const el=document.getElementById(`ec-${gid}-${p.id}`);if(el)el.classList.replace(v?'off':'on',v?'on':'off');});
+}
+function selEditG(gid,grp){
+  const g=gastos.find(x=>x.id===gid);if(!g)return;
+  const ids=grp==='mie'?MIE:SIN_RAYO;
+  g.part=[];
+  P.forEach(p=>{const el=document.getElementById(`ec-${gid}-${p.id}`);if(el){if(ids.includes(p.id)){g.part.push(p.id);el.classList.replace('off','on');}else el.classList.replace('on','off');}});
+}
+async function saveEdit(id){
+  const g=gastos.find(x=>x.id===id);
+  if(!g||g.part.length===0){alert('Seleccioná al menos una persona');return;}
+  await save();
+  const ep=document.getElementById('ep-'+id);if(ep)ep.classList.remove('open');
+  const meta=document.getElementById('gmeta-'+id);
+  const pn=gp(g.pag)?.n||g.pag;
+  const cc=CC[g.cat]||'#f3f4f6',ct=CT[g.cat]||'#4b5563';
+  if(meta)meta.innerHTML=`pagó <b style="color:#1a1a1a">${pn}</b> · ${g.part.length} personas <span style="background:${cc};color:${ct};padding:1px 6px;border-radius:4px;font-size:10px;margin-left:4px">${g.cat}</span>`;
+}
+async function del(id){
+  if(!confirm('¿Borrar este gasto?'))return;
+  gastos=gastos.filter(g=>g.id!==id);
+  await save();render();
+}
+
+function vNuevo(){
+  const opts=P.map(p=>`<option value="${p.id}">${p.n}</option>`).join('');
+  const catOpts=CATS.map(c=>`<option value="${c}">${c}</option>`).join('');
+  const chs=P.map(p=>`<span class="chip on" id="nc-${p.id}" onclick="tNewChip('${p.id}')">${p.n}</span>`).join('');
+  return`<div class="ph">➕ Nuevo gasto</div><div class="card">
+    <label class="lbl">Descripción</label>
+    <input type="text" id="nd" placeholder="Asado, nafta, super..."/>
+    <div class="frow">
+      <div><label class="lbl">Monto ARS</label><input type="number" id="nm" placeholder="0"/></div>
+      <div><label class="lbl">¿Quién pagó?</label><select id="np">${opts}</select></div>
+    </div>
+    <label class="lbl">Categoría</label>
+    <select id="ncat" style="margin-bottom:12px">${catOpts}</select>
+    <label class="lbl">¿Quiénes participaron?</label>
+    <div class="pgrid">${chs}</div>
+    <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px">
+      <button class="btn-s" onclick="selNewAll(true)">Todos</button>
+      <button class="btn-s" onclick="selNewAll(false)">Ninguno</button>
+      <button class="btn-s" onclick="selNewG('mie')">8 miércoles</button>
+      <button class="btn-s" onclick="selNewG('sinrayo')">Sin Rayo</button>
+    </div>
+    <button class="btn-p" onclick="addG()">Agregar gasto →</button>
+  </div>`;
+}
+function tNewChip(id){const el=document.getElementById('nc-'+id);if(!el)return;if(newChips.has(id)){newChips.delete(id);el.classList.replace('on','off');}else{newChips.add(id);el.classList.replace('off','on');}}
+function selNewAll(v){P.forEach(p=>{const el=document.getElementById('nc-'+p.id);if(el){if(v){newChips.add(p.id);el.classList.replace('off','on');}else{newChips.delete(p.id);el.classList.replace('on','off');}}});}
+function selNewG(g){selNewAll(false);(g==='mie'?MIE:SIN_RAYO).forEach(id=>{newChips.add(id);const el=document.getElementById('nc-'+id);if(el)el.classList.replace('off','on');});}
+async function addG(){
+  const desc=document.getElementById('nd')?.value?.trim();
+  const monto=parseFloat(document.getElementById('nm')?.value);
+  const pag=document.getElementById('np')?.value;
+  const cat=document.getElementById('ncat')?.value;
+  const part=[...newChips];
+  if(!desc||!monto||part.length===0){alert('Completá todos los campos');return;}
+  gastos.push({id:Date.now(),desc,monto,pag,part,cat});
+  await save();sv('gastos');
+}
+
+function vBalances(){
+  const bal=calcBal();const tr=simplify(bal);
+  const sorted=[...P].sort((a,b)=>bal[b.id]-bal[a.id]);
+  let h=`<div class="ph">💸 Balances finales</div>
+  <div style="background:#dcfce7;border:1px solid #bbf7d0;border-radius:8px;padding:10px 14px;font-size:11px;color:#166534;margin-bottom:16px">✅ Adelantos ya descontados — estos son los balances reales</div>
+  <div class="sec">${tr.length} transferencias para cerrar el viaje</div><div class="card">`;
+  tr.forEach(t=>{
+    const fr=gp(t.from),to=gp(t.to);
+    h+=`<div class="tr-row">
+      <div class="av" style="background:${fr?.c}22;color:${fr?.c}">${fr?.n.slice(0,2).toUpperCase()}</div>
+      <span style="font-weight:500">${fr?.n}</span>
+      <span style="color:#ccc;font-size:18px">→</span>
+      <div class="av" style="background:${to?.c}22;color:${to?.c}">${to?.n.slice(0,2).toUpperCase()}</div>
+      <span style="font-weight:500">${to?.n}</span>
+      <span style="font-weight:600;margin-left:auto;font-size:13px">${fa(t.amount)}</span>
+    </div>`;
+  });
+  h+=`</div><div class="sec" style="margin-top:1.5rem">Detalle por persona</div><div class="card">`;
+  sorted.forEach(p=>{
+    const b=bal[p.id],pos=b>=0;
+    h+=`<div class="bal-row">
+      <div class="av" style="background:${p.c}22;color:${p.c}">${p.n.slice(0,2).toUpperCase()}</div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:500">${p.n}</div>
+        <div style="font-size:11px;color:#999">${pos?'Le deben':'Debe'} ${fa(Math.abs(b))}</div>
+      </div>
+      <span class="badge ${pos?'bg':'br'}">${pos?'+':''}${fa(b)}</span>
+    </div>`;
+  });
+  h+=`</div>`;return h;
+}
+
+function vAnalisis(){
+  const totPorCat={};CATS.forEach(c=>totPorCat[c]=0);
+  gastos.forEach(g=>{totPorCat[g.cat]=(totPorCat[g.cat]||0)+g.monto;});
+  const total=Object.values(totPorCat).reduce((a,b)=>a+b,0);
+  const sorted=Object.entries(totPorCat).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
+  const topPag={};gastos.forEach(g=>{topPag[g.pag]=(topPag[g.pag]||0)+g.monto;});
+  const topS=Object.entries(topPag).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  let h=`<div class="ph">📈 Análisis del viaje</div>
+  <div class="sec">¿En qué se fue la plata?</div><div class="card">`;
+  sorted.forEach(([cat,tot])=>{
+    const pct=Math.round(tot/total*100);
+    const cc=CC[cat]||'#f3f4f6',ct=CT[cat]||'#4b5563';
+    h+=`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f0f0ee">
+      <span style="font-size:10px;width:76px;background:${cc};color:${ct};padding:2px 6px;border-radius:4px;flex-shrink:0;text-align:center">${cat}</span>
+      <div style="flex:1;background:#f0f0ee;border-radius:2px;height:6px">
+        <div style="width:${pct}%;background:${ct};height:6px;border-radius:2px"></div>
+      </div>
+      <span style="font-size:12px;font-weight:500;min-width:100px;text-align:right">${fa(tot)}</span>
+      <span style="font-size:11px;color:#999;min-width:28px;text-align:right">${pct}%</span>
+    </div>`;
+  });
+  h+=`</div><div class="sec" style="margin-top:1.5rem">Top pagadores</div><div class="card">`;
+  topS.forEach(([id,tot],i)=>{
+    const p=gp(id);
+    h+=`<div class="bal-row">
+      <span style="font-size:11px;color:#999;min-width:16px">${i+1}</span>
+      <div class="av" style="background:${p?.c}22;color:${p?.c}">${p?.n.slice(0,2).toUpperCase()}</div>
+      <span style="font-size:13px;font-weight:500;flex:1">${p?.n}</span>
+      <span class="badge bb">${fa(tot)}</span>
+    </div>`;
+  });
+  h+=`</div>`;return h;
+}
+
+load();
+</script>
+</body>
+</html>
