@@ -1,38 +1,607 @@
 {
   "gastos": [
-    {"id":1,"desc":"Lo de Juampi","monto":64760.50,"pag":"santi","part":["redon","cale","fata","mata","nicos","chule","gabo","magu","cucha","javo","manu","tolo","santi","poke","rayo","maxo"],"cat":"Super"},
-    {"id":2,"desc":"Pescado","monto":78000,"pag":"cucha","part":["cale","gabo","magu","cucha","fata","tolo","chule","santi"],"cat":"Comida"},
-    {"id":3,"desc":"Verdulería (Cucha)","monto":52000,"pag":"cucha","part":["cale","gabo","magu","cucha","fata","tolo","chule","santi"],"cat":"Super"},
-    {"id":4,"desc":"Picada","monto":69000,"pag":"cucha","part":["cale","gabo","magu","cucha","fata","tolo","chule","santi"],"cat":"Comida"},
-    {"id":5,"desc":"Nafta convoy","monto":68000,"pag":"javo","part":["javo","manu","redon"],"cat":"Transporte"},
-    {"id":6,"desc":"Bai Bai almuerzo","monto":125000,"pag":"fata","part":["cale","gabo","magu","cucha","fata","tolo","chule","santi"],"cat":"Comida"},
-    {"id":7,"desc":"Combi jueves noche","monto":320000,"pag":"nicos","part":["redon","cale","fata","mata","nicos","chule","gabo","magu","cucha","javo","manu","tolo","santi","poke","maxo"],"cat":"Transporte"},
-    {"id":8,"desc":"Rummy boliche","monto":330000,"pag":"rayo","part":["rayo","redon","javo","chule","poke","cucha","cale"],"cat":"Joda"},
-    {"id":9,"desc":"Venti boliche","monto":425499,"pag":"chule","part":["redon","cale","fata","mata","nicos","chule","gabo","magu","cucha","javo","manu","tolo","santi","poke","maxo"],"cat":"Joda"},
-    {"id":10,"desc":"Drogas","monto":600000,"pag":"poke","part":["poke","cale","cucha","chule","javo","rayo","redon"],"cat":"Varios"},
-    {"id":11,"desc":"2 asados + vinos","monto":911000,"pag":"tolo","part":["redon","cale","fata","mata","nicos","chule","gabo","magu","cucha","javo","manu","tolo","santi","poke","rayo","maxo"],"cat":"Comida"},
-    {"id":12,"desc":"Super 11/4","monto":115012.54,"pag":"rayo","part":["redon","cale","fata","mata","nicos","chule","gabo","magu","cucha","javo","manu","tolo","santi","poke","rayo","maxo"],"cat":"Super"},
-    {"id":13,"desc":"Pizzas viernes","monto":234000,"pag":"magu","part":["redon","cale","fata","mata","nicos","chule","gabo","magu","cucha","javo","manu","tolo","santi","poke","rayo","maxo"],"cat":"Comida"},
-    {"id":14,"desc":"Verdulería (Magu)","monto":25000,"pag":"magu","part":["redon","cale","fata","mata","nicos","chule","gabo","magu","cucha","javo","manu","tolo","santi","poke","rayo","maxo"],"cat":"Super"},
-    {"id":15,"desc":"Leña","monto":166000,"pag":"cale","part":["redon","cale","fata","mata","nicos","chule","gabo","magu","cucha","javo","manu","tolo","santi","poke","rayo","maxo"],"cat":"Comida"},
-    {"id":16,"desc":"Taxi","monto":30000,"pag":"cale","part":["redon","cale","fata","mata","nicos","chule","gabo","magu","cucha","javo","manu","tolo","santi","poke","rayo","maxo"],"cat":"Transporte"},
-    {"id":17,"desc":"Casa Maraya","monto":3105000,"pag":"mata","part":["redon","cale","fata","mata","nicos","chule","gabo","magu","cucha","javo","manu","tolo","santi","poke","rayo","maxo"],"cat":"Alojamiento"},
-    {"id":18,"desc":"Super Chapa","monto":175000,"pag":"magu","part":["redon","cale","fata","mata","nicos","chule","gabo","magu","cucha","javo","manu","tolo","santi","poke","rayo","maxo"],"cat":"Super"},
-    {"id":19,"desc":"Hielo y varios","monto":45000,"pag":"gabo","part":["redon","cale","fata","mata","nicos","chule","gabo","magu","cucha","javo","manu","tolo","santi","poke","rayo","maxo"],"cat":"Super"},
-    {"id":20,"desc":"Super hamburguesas","monto":108000,"pag":"gabo","part":["redon","cale","fata","mata","nicos","chule","gabo","magu","cucha","javo","manu","tolo","santi","poke","rayo","maxo"],"cat":"Super"},
-    {"id":21,"desc":"Escabio y dulces","monto":715000,"pag":"gabo","part":["redon","cale","fata","mata","nicos","chule","gabo","magu","cucha","javo","manu","tolo","santi","poke","rayo","maxo"],"cat":"Super"},
-    {"id":22,"desc":"Nafta vuelta","monto":90000,"pag":"javo","part":["rayo","tolo","redon","javo"],"cat":"Transporte"},
-    {"id":23,"desc":"Gs. generales casa","monto":409000,"pag":"mata","part":["redon","cale","fata","mata","nicos","chule","gabo","magu","cucha","javo","manu","tolo","santi","poke","rayo","maxo"],"cat":"Varios"}
+    {
+      "id": 1,
+      "desc": "Lo de Juampi",
+      "monto": 64760.5,
+      "pag": "santi",
+      "part": [
+        "redon",
+        "cale",
+        "fata",
+        "mata",
+        "nicos",
+        "chule",
+        "gabo",
+        "magu",
+        "cucha",
+        "javo",
+        "manu",
+        "tolo",
+        "santi",
+        "poke",
+        "rayo",
+        "maxo"
+      ],
+      "fecha": "2026-04-08",
+      "cat": "Super"
+    },
+    {
+      "id": 2,
+      "desc": "Pescado",
+      "monto": 78000,
+      "pag": "cucha",
+      "part": [
+        "cale",
+        "gabo",
+        "magu",
+        "cucha",
+        "fata",
+        "tolo",
+        "chule",
+        "santi"
+      ],
+      "fecha": "2026-04-09",
+      "cat": "Comida"
+    },
+    {
+      "id": 3,
+      "desc": "Verdulería (Cucha)",
+      "monto": 52000,
+      "pag": "cucha",
+      "part": [
+        "cale",
+        "gabo",
+        "magu",
+        "cucha",
+        "fata",
+        "tolo",
+        "chule",
+        "santi"
+      ],
+      "fecha": "2026-04-09",
+      "cat": "Super"
+    },
+    {
+      "id": 4,
+      "desc": "Picada",
+      "monto": 69000,
+      "pag": "cucha",
+      "part": [
+        "cale",
+        "gabo",
+        "magu",
+        "cucha",
+        "fata",
+        "tolo",
+        "chule",
+        "santi"
+      ],
+      "fecha": "2026-04-09",
+      "cat": "Comida"
+    },
+    {
+      "id": 5,
+      "desc": "Nafta convoy",
+      "monto": 68000,
+      "pag": "javo",
+      "part": [
+        "javo",
+        "manu",
+        "redon"
+      ],
+      "fecha": "2026-04-09",
+      "cat": "Transporte"
+    },
+    {
+      "id": 6,
+      "desc": "Bai Bai almuerzo",
+      "monto": 125000,
+      "pag": "fata",
+      "part": [
+        "cale",
+        "gabo",
+        "magu",
+        "cucha",
+        "fata",
+        "tolo",
+        "chule",
+        "santi"
+      ],
+      "fecha": "2026-04-09",
+      "cat": "Comida"
+    },
+    {
+      "id": 7,
+      "desc": "Combi jueves noche",
+      "monto": 320000,
+      "pag": "nicos",
+      "part": [
+        "redon",
+        "cale",
+        "fata",
+        "mata",
+        "nicos",
+        "chule",
+        "gabo",
+        "magu",
+        "cucha",
+        "javo",
+        "manu",
+        "tolo",
+        "santi",
+        "poke",
+        "maxo"
+      ],
+      "fecha": "2026-04-09",
+      "cat": "Transporte"
+    },
+    {
+      "id": 8,
+      "desc": "Rummy boliche",
+      "monto": 330000,
+      "pag": "rayo",
+      "part": [
+        "rayo",
+        "redon",
+        "javo",
+        "chule",
+        "poke",
+        "cucha",
+        "cale"
+      ],
+      "fecha": "2026-04-10",
+      "cat": "Joda"
+    },
+    {
+      "id": 9,
+      "desc": "Venti boliche",
+      "monto": 425499,
+      "pag": "chule",
+      "part": [
+        "redon",
+        "cale",
+        "fata",
+        "mata",
+        "nicos",
+        "chule",
+        "gabo",
+        "magu",
+        "cucha",
+        "javo",
+        "manu",
+        "tolo",
+        "santi",
+        "poke",
+        "maxo"
+      ],
+      "fecha": "2026-04-09",
+      "cat": "Joda"
+    },
+    {
+      "id": 10,
+      "desc": "Drogas",
+      "monto": 600000,
+      "pag": "poke",
+      "part": [
+        "poke",
+        "cale",
+        "cucha",
+        "chule",
+        "javo",
+        "rayo",
+        "redon"
+      ],
+      "fecha": "2026-04-10",
+      "cat": "Varios"
+    },
+    {
+      "id": 11,
+      "desc": "Asado + vinos viernes",
+      "monto": 455500,
+      "pag": "tolo",
+      "part": [
+        "redon",
+        "cale",
+        "fata",
+        "mata",
+        "nicos",
+        "chule",
+        "gabo",
+        "magu",
+        "cucha",
+        "javo",
+        "manu",
+        "tolo",
+        "santi",
+        "poke",
+        "rayo",
+        "maxo"
+      ],
+      "fecha": "2026-04-10",
+      "cat": "Comida"
+    },
+    {
+      "id": 12,
+      "desc": "Asado + vinos sábado",
+      "monto": 455500,
+      "pag": "tolo",
+      "part": [
+        "redon",
+        "cale",
+        "mata",
+        "chule",
+        "gabo",
+        "magu",
+        "cucha",
+        "javo",
+        "tolo",
+        "santi",
+        "poke",
+        "rayo",
+        "maxo"
+      ],
+      "fecha": "2026-04-11",
+      "cat": "Comida"
+    },
+    {
+      "id": 13,
+      "desc": "Super 11/4",
+      "monto": 115012.54,
+      "pag": "rayo",
+      "part": [
+        "redon",
+        "cale",
+        "fata",
+        "mata",
+        "nicos",
+        "chule",
+        "gabo",
+        "magu",
+        "cucha",
+        "javo",
+        "manu",
+        "tolo",
+        "santi",
+        "poke",
+        "rayo",
+        "maxo"
+      ],
+      "fecha": "2026-04-11",
+      "cat": "Super"
+    },
+    {
+      "id": 14,
+      "desc": "Pizzas viernes",
+      "monto": 234000,
+      "pag": "magu",
+      "part": [
+        "redon",
+        "cale",
+        "fata",
+        "mata",
+        "nicos",
+        "chule",
+        "gabo",
+        "magu",
+        "cucha",
+        "javo",
+        "manu",
+        "tolo",
+        "santi",
+        "poke",
+        "rayo",
+        "maxo"
+      ],
+      "fecha": "2026-04-10",
+      "cat": "Comida"
+    },
+    {
+      "id": 15,
+      "desc": "Verdulería (Magu)",
+      "monto": 25000,
+      "pag": "magu",
+      "part": [
+        "redon",
+        "cale",
+        "fata",
+        "mata",
+        "nicos",
+        "chule",
+        "gabo",
+        "magu",
+        "cucha",
+        "javo",
+        "manu",
+        "tolo",
+        "santi",
+        "poke",
+        "rayo",
+        "maxo"
+      ],
+      "fecha": "2026-04-10",
+      "cat": "Super"
+    },
+    {
+      "id": 16,
+      "desc": "Leña",
+      "monto": 166000,
+      "pag": "cale",
+      "part": [
+        "redon",
+        "cale",
+        "fata",
+        "mata",
+        "nicos",
+        "chule",
+        "gabo",
+        "magu",
+        "cucha",
+        "javo",
+        "manu",
+        "tolo",
+        "santi",
+        "poke",
+        "rayo",
+        "maxo"
+      ],
+      "fecha": "2026-04-09",
+      "cat": "Comida"
+    },
+    {
+      "id": 17,
+      "desc": "Taxi viernes (Redon)",
+      "monto": 30000,
+      "pag": "redon",
+      "part": [
+        "redon",
+        "chule",
+        "poke"
+      ],
+      "fecha": "2026-04-10",
+      "cat": "Transporte"
+    },
+    {
+      "id": 18,
+      "desc": "Taxi viernes (Cale)",
+      "monto": 30000,
+      "pag": "cale",
+      "part": [
+        "javo",
+        "cale",
+        "rayo",
+        "cucha"
+      ],
+      "fecha": "2026-04-10",
+      "cat": "Transporte"
+    },
+    {
+      "id": 19,
+      "desc": "Casa Maraya",
+      "monto": 3105000,
+      "pag": "mata",
+      "part": [
+        "redon",
+        "cale",
+        "fata",
+        "mata",
+        "nicos",
+        "chule",
+        "gabo",
+        "magu",
+        "cucha",
+        "javo",
+        "manu",
+        "tolo",
+        "santi",
+        "poke",
+        "rayo",
+        "maxo"
+      ],
+      "fecha": "2026-04-08",
+      "cat": "Alojamiento"
+    },
+    {
+      "id": 20,
+      "desc": "Super Chapa",
+      "monto": 175000,
+      "pag": "magu",
+      "part": [
+        "redon",
+        "cale",
+        "fata",
+        "mata",
+        "nicos",
+        "chule",
+        "gabo",
+        "magu",
+        "cucha",
+        "javo",
+        "manu",
+        "tolo",
+        "santi",
+        "poke",
+        "rayo",
+        "maxo"
+      ],
+      "fecha": "2026-04-11",
+      "cat": "Super"
+    },
+    {
+      "id": 21,
+      "desc": "Hielo y varios",
+      "monto": 45000,
+      "pag": "gabo",
+      "part": [
+        "redon",
+        "cale",
+        "mata",
+        "chule",
+        "gabo",
+        "magu",
+        "cucha",
+        "javo",
+        "tolo",
+        "santi",
+        "poke",
+        "rayo",
+        "maxo"
+      ],
+      "fecha": "2026-04-11",
+      "cat": "Super"
+    },
+    {
+      "id": 22,
+      "desc": "Super hamburguesas",
+      "monto": 108000,
+      "pag": "gabo",
+      "part": [
+        "redon",
+        "cale",
+        "mata",
+        "chule",
+        "gabo",
+        "magu",
+        "cucha",
+        "javo",
+        "tolo",
+        "santi",
+        "poke",
+        "rayo",
+        "maxo"
+      ],
+      "fecha": "2026-04-11",
+      "cat": "Super"
+    },
+    {
+      "id": 23,
+      "desc": "Escabio y dulces",
+      "monto": 715000,
+      "pag": "gabo",
+      "part": [
+        "redon",
+        "cale",
+        "fata",
+        "mata",
+        "nicos",
+        "chule",
+        "gabo",
+        "magu",
+        "cucha",
+        "javo",
+        "manu",
+        "tolo",
+        "santi",
+        "poke",
+        "rayo",
+        "maxo"
+      ],
+      "fecha": "2026-04-11",
+      "cat": "Super"
+    },
+    {
+      "id": 24,
+      "desc": "Nafta vuelta",
+      "monto": 90000,
+      "pag": "javo",
+      "part": [
+        "rayo",
+        "tolo",
+        "redon",
+        "javo"
+      ],
+      "fecha": "2026-04-12",
+      "cat": "Transporte"
+    },
+    {
+      "id": 25,
+      "desc": "Gastos generales casa",
+      "monto": 409000,
+      "pag": "mata",
+      "part": [
+        "redon",
+        "cale",
+        "fata",
+        "mata",
+        "nicos",
+        "chule",
+        "gabo",
+        "magu",
+        "cucha",
+        "javo",
+        "manu",
+        "tolo",
+        "santi",
+        "poke",
+        "rayo",
+        "maxo"
+      ],
+      "fecha": "2026-04-12",
+      "cat": "Varios"
+    },
+    {
+      "id": 26,
+      "desc": "2da combi",
+      "monto": 160000,
+      "pag": "chule",
+      "part": [
+        "rayo",
+        "redon",
+        "javo",
+        "chule",
+        "poke",
+        "cucha",
+        "cale"
+      ],
+      "fecha": "2026-04-10",
+      "cat": "Transporte"
+    }
   ],
   "adelantos": [
-    {"de":"redon","a":"mata","monto":690000},
-    {"de":"manu","a":"mata","monto":276000},
-    {"de":"javo","a":"mata","monto":207000},
-    {"de":"cale","a":"mata","monto":207000},
-    {"de":"cucha","a":"mata","monto":207000},
-    {"de":"fata","a":"mata","monto":414000},
-    {"de":"santi","a":"mata","monto":207000},
-    {"de":"magu","a":"mata","monto":138000},
-    {"de":"poke","a":"mata","monto":138000}
+    {
+      "de": "redon",
+      "a": "mata",
+      "monto": 690000
+    },
+    {
+      "de": "manu",
+      "a": "mata",
+      "monto": 276000
+    },
+    {
+      "de": "javo",
+      "a": "mata",
+      "monto": 207000
+    },
+    {
+      "de": "cale",
+      "a": "mata",
+      "monto": 207000
+    },
+    {
+      "de": "cucha",
+      "a": "mata",
+      "monto": 207000
+    },
+    {
+      "de": "fata",
+      "a": "mata",
+      "monto": 414000
+    },
+    {
+      "de": "santi",
+      "a": "mata",
+      "monto": 207000
+    },
+    {
+      "de": "magu",
+      "a": "mata",
+      "monto": 138000
+    },
+    {
+      "de": "poke",
+      "a": "mata",
+      "monto": 138000
+    }
   ]
 }
